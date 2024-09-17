@@ -1,0 +1,48 @@
+{% extends 'template_main.html' %}
+
+{% block main %}
+  <div class="container-md mt-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">1. Authentication</h5>
+        <p class="card-text">Step one is to authenticate with the <em>/authorize</em> endpoint.</p>
+        <a href="#" class="card-link">Card link</a>
+        <a href="#" class="card-link">Another link</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">2. Authentication code</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Fill in the code</h6>
+        <p class="card-text">Here fill in the authentication code that was returned by the oath server.</p>
+        <div class="row-cols-md-3">
+          <form>
+            <label class="col">code</label>
+            <textarea class="col"></textarea>
+            <button type="submit" class="col btn btn-primary">submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+          content.</p>
+        <a href="#" class="card-link">Card link</a>
+        <a href="#" class="card-link">Another link</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Curl</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+          content.</p>
+        <a href="#" class="card-link">Card link</a>
+        <a href="#" class="card-link">Another link</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

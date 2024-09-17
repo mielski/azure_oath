@@ -1,19 +1,21 @@
 {% extends 'template_main.html' %}
 
 {% block main %}
-  <div class="px-4 py-3 my-2 text-center">
-    <h1>Click the following button to create a pkce pair</h1>
-  </div>
-  <form method="post" action="{{ url_for('pkce_gen') }}">
-    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
-      <button type="submit" class="btn btn-primary btn-lg px-4 gap-3">Click here</button>
+  <div class="container-md">
+    <div class="px-4 py-3 my-2 text-center">
+      <h1>Click the following button to create a pkce pair</h1>
     </div>
-  </form>
+    <form method="post" action="{{ url_for('pkce_gen') }}">
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
+        <button type="submit" class="btn btn-primary btn-lg px-4 gap-3">Click here</button>
+      </div>
+    </form>
 
-  <div class="row m-2 justify-content-center">
-    {% if session["code_verifier"] %}
-      <p class="col-4 bg-light m-1"><code class="code_test">code verifier: {{ session["code_verifier"] }}</code></p>
-      <p class="col-4 bg-light m-1"><code class="code_test">code challenge: {{ session["code_challenge"] }}</code></p>
-    {% endif %}
+    <div class="row m-2 justify-content-center">
+      {% if session["code_verifier"] %}
+        <p class="col-4 bg-light m-1"><code class="code_test">code verifier: {{ session["code_verifier"] }}</code></p>
+        <p class="col-4 bg-light m-1"><code class="code_test">code challenge: {{ session["code_challenge"] }}</code></p>
+      {% endif %}
+    </div>
   </div>
 {% endblock %}

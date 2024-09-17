@@ -10,7 +10,7 @@ app.secret_key = secrets.token_urlsafe(16)
 @app.route('/')
 def index():
    print('Request for index page received')
-   return render_template('index.html')
+   return render_template('authentication_code_flow.html')
 
 @app.before_request
 def pre_fill_session_keys():
