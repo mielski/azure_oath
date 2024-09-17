@@ -1,0 +1,16 @@
+{% extends 'template_main.html' %}
+
+{% block main %}
+  <div class="px-4 py-3 my-2 text-center">
+    <h1>Click the following button to create a pkce pair</h1>
+  </div>
+  <form method="post" action="{{ url_for('hello') }}">
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
+        <button type="submit" class="btn btn-primary btn-lg px-4 gap-3">Click here</button>
+      </div>
+    </div>
+  </form>
+  <div>
+    <p class="px-4 text-center">the pairs here</p>
+  </div>
+{% endblock %}

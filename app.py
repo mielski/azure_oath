@@ -23,6 +23,11 @@ def output():
 
     return render_template('output.html')
 
+@app.route('/pkce', methods=['GET'])
+def pkce():
+
+    return render_template('create_pkce.html')
+
 @app.route('/hello', methods=['POST'])
 def hello():
    name = request.form.get('name')
