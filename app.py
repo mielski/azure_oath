@@ -1,16 +1,22 @@
 import os
-
+import secrets
+import pkce
 from flask import (Flask, redirect, render_template, request,
-                   send_from_directory, url_for)
+                   send_from_directory, url_for, session)
 
 app = Flask(__name__)
-
+app.secret_key = secrets.token_urlsafe(16)
 
 @app.route('/')
 def index():
    print('Request for index page received')
    return render_template('index.html')
 
+@app.before_request
+def pre_fill_session_keys():
+    for key in ("code_verifier", "code_challenge"):
+        if key not in session:
+            session[key] = ""
 
 @app.route('/favicon.ico')
 def favicon():
@@ -23,8 +29,14 @@ def output():
 
     return render_template('output.html')
 
-@app.route('/pkce', methods=['GET'])
-def pkce():
+@app.route('/pkce', methods=['GET', 'POST'])
+def pkce_gen():
+    """create pcke code on post request, show pkce variables on get."""
+    if request.method == "POST":
+        # create a new pkce pair
+        code_verifier, code_challenge = pkce.generate_pkce_pair(60)
+        session["code_verifier"] = code_verifier
+        session["code_challenge"] = code_challenge
 
     return render_template('create_pkce.html')
 
