@@ -1,22 +1,45 @@
 import os
+import random
 import secrets
+from urllib import parse
+
 import pkce
 from flask import (Flask, redirect, render_template, request,
                    send_from_directory, url_for, session)
+from jinja2 import Environment
+
+AUTHORIZE_URL = "https://dev-a5q1ydqw73oghxli.us.auth0.com/authorize"
+TOKEN_URL = "https://dev-a5q1ydqw73oghxli.us.auth0.com/oauth/token"
+CLIENT_ID = "c4sFmk9OlnitsgqXaryE180II1i02B15"
+
 
 app = Flask(__name__)
 app.secret_key = secrets.token_urlsafe(16)
 
-@app.route('/')
-def index():
-   print('Request for index page received')
-   return render_template('authentication_code_flow.html')
+app.jinja_options = {"trim_blocks": True,
+                     "lstrip_blocks": True}
+
 
 @app.before_request
 def pre_fill_session_keys():
     for key in ("code_verifier", "code_challenge"):
         if key not in session:
             session[key] = ""
+
+@app.route('/')
+def index():
+    authorize_params = {"response_type": "code",
+                       "client_id": CLIENT_ID,
+                       "state": '1234567890abcd',
+                       "redirect_uri": "https://example-app.com/redirect",
+                       "code_challenge": session["code_challenge"],
+                       "code_challenge_method": "S256"}
+
+    # TODO update input variables to pass urls and their arguments
+
+    auth_link = AUTHORIZE_URL + "?" + parse.urlencode(authorize_params)
+    return render_template('authentication_code_flow.html', auth_link=auth_link, params=authorize_params)
+
 
 @app.route('/favicon.ico')
 def favicon():
