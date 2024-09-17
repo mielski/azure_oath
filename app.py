@@ -1,17 +1,17 @@
 import os
-import random
 import secrets
 from urllib import parse
-
+from dotenv import load_dotenv
 import pkce
 from flask import (Flask, redirect, render_template, request,
                    send_from_directory, url_for, session)
-from jinja2 import Environment
+
+load_dotenv()
 
 AUTHORIZE_URL = "https://dev-a5q1ydqw73oghxli.us.auth0.com/authorize"
 TOKEN_URL = "https://dev-a5q1ydqw73oghxli.us.auth0.com/oauth/token"
 CLIENT_ID = "c4sFmk9OlnitsgqXaryE180II1i02B15"
-
+CLIENT_SECRET = os.environ["CLIENT_SECRET"]
 
 app = Flask(__name__)
 app.secret_key = secrets.token_urlsafe(16)
