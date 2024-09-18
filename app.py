@@ -6,6 +6,8 @@ import pkce
 from flask import (Flask, redirect, render_template, request,
                    send_from_directory, url_for, session)
 
+from url_request_meta import UrlRequestMeta
+
 load_dotenv()
 
 AUTHORIZE_URL = "https://dev-a5q1ydqw73oghxli.us.auth0.com/authorize"
@@ -36,9 +38,10 @@ def index():
                        "code_challenge_method": "S256"}
 
     # TODO update input variables to pass urls and their arguments
+    url_authorize = UrlRequestMeta(AUTHORIZE_URL, "GET",
+                                   params=authorize_params)
 
-    auth_link = AUTHORIZE_URL + "?" + parse.urlencode(authorize_params)
-    return render_template('authentication_code_flow.html', auth_link=auth_link, params=authorize_params)
+    return render_template('authentication_code_flow.html', url_authorize=url_authorize)
 
 
 @app.route('/favicon.ico')
